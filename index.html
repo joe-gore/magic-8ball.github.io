@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Magic 8-Ball</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .magic-8-ball {
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: center;
+      padding: 20px;
+      background-color: #F2F2F2;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      position: relative;
+    }
+
+    .magic-8-ball h1 {
+      margin-top: 0;
+    }
+
+    .magic-8-ball form {
+      display: inline-block;
+    }
+
+    .magic-8-ball label {
+      font-size: 20px;
+      display: block;
+      margin-bottom: 10px;
+    }
+
+    .magic-8-ball input[type="text"] {
+      font-size: 16px;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      margin-bottom: 10px;
+      width: 60%;
+    }
+
+    .magic-8-ball button {
+      font-size: 20px;
+      padding: 10px 20px;
+      border-radius: 5px;
+      border: none;
+      background-color: #0077FF;
+      color: #FFF;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+    }
+
+    .magic-8-ball #answer {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #0077FF;
+      animation-name: bounceIn;
+      animation-duration: 1s;
+      animation-fill-mode: forwards;
+      opacity: 0;
+    }
+
+    @keyframes bounceIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.1);
+      }
+      60% {
+        opacity: 1;
+        transform: scale(1.2);
+      }
+      80% {
+        transform: scale(0.9);
+      }
+      100% {
+        transform: scale(1);
+      }
+	  
+
+.shake {
+  animation-name: shake;
+  animation-duration: 0.5s;
+  animation-timing-function: cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  animation-iteration-count: 1;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate(-1px, 0px
+    }
+  </style>
+</head>
+<body>
+  <div class="magic-8-ball">
+    <h1>Magic 8-Ball</h1>
+    <form>
+      <label for="question">Ask a question:</label>
+      <input type="text" id="question" placeholder="Type your question here...">
+      <button type="submit" id="submit-btn">Shake!</button>
+    </form>
+    <div id="answer"></div>
+  </div>
+  <script>
+    const shake = () => {
+  const magic8Ball = document.querySelector('.magic-8-ball');
+  magic8Ball.classList.add('shake');
+  setTimeout(() => {
+    magic8Ball.classList.remove('shake');
+  }, 1000);
+}
+
+const form = document.querySelector('form');
+const input = document.querySelector('#question');
+const answer = document.querySelector('#answer');
+
+const answers = [
+  "It is certain",
+  "Without a doubt",
+  "You may rely on it",
+  "Yes definitely",
+  "It is decidedly so",
+  "As I see it, yes",
+  "Most likely",
+  "Yes",
+  "Outlook good",
+  "Signs point to yes",
+  "Reply hazy try again",
+  "Better not tell you now",
+  "Ask again later",
+  "Cannot predict now",
+  "Concentrate and ask again",
+  "Don't count on it",
+  "Outlook not so good",
+  "My sources say no",
+  "Very doubtful",
+  "My reply is no"
+];
+
+let askedQuestions = [];
+
+form.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const question = input.value.trim().toLowerCase();
+
+  if (!question) return;
+
+  if (askedQuestions.includes(question)) {
+    answer.textContent = "I've already answered that question!";
+    answer.style.opacity = 1;
+    return;
+  }
+
+  const randomAnswer = answers[Math.floor(Math.random() * answers.length)];
+  answer.textContent = randomAnswer;
+  answer.style.opacity = 1;
+  askedQuestions.push(question);
+  input.value = '';
+  shake();
+});
+  </script>
+</body>
+</html>
